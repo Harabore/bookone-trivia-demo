@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BookOne Trivia Admin Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>📊 BookOne Trivia Admin Dashboard</h1>
+
+    <section class="admin-section">
+      <h2>Overview</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3>Total Players</h3>
+          <p id="totalPlayers">12,547</p>
+        </div>
+        <div class="stat-card">
+          <h3>Active Today</h3>
+          <p id="activeToday">2,154</p>
+        </div>
+        <div class="stat-card">
+          <h3>Total Questions</h3>
+          <p id="totalQuestions">480</p>
+        </div>
+        <div class="stat-card">
+          <h3>Airtime Rewards (KES)</h3>
+          <p id="airtimeRewards">35,000</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="admin-section">
+      <h2>🏆 Top Performers</h2>
+      <table class="leaderboard">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Player</th>
+            <th>Score</th>
+            <th>Reward (KES)</th>
+          </tr>
+        </thead>
+        <tbody id="topPlayers">
+          <tr><td>1</td><td>Jane Mwangi</td><td>95</td><td>500</td></tr>
+          <tr><td>2</td><td>Peter Otieno</td><td>90</td><td>300</td></tr>
+          <tr><td>3</td><td>Faith Chebet</td><td>85</td><td>200</td></tr>
+          <tr><td>4</td><td>Kevin Waweru</td><td>82</td><td>100</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="admin-section">
+      <h2>📝 Manage Quiz Questions</h2>
+      <form id="questionForm">
+        <input type="text" id="questionInput" placeholder="Enter new quiz question" required />
+        <button class="btn" type="submit">Add Question</button>
+      </form>
+      <ul id="questionList">
+        <li>Which country hosted AFCON 2024?</li>
+        <li>Who is the current President of Kenya?</li>
+        <li>What is the capital of Tanzania?</li>
+      </ul>
+    </section>
+
+    <section class="admin-section">
+      <h2>💰 Reward Budget Simulation</h2>
+      <table class="reward-table">
+        <thead>
+          <tr>
+            <th>Reward Tier</th>
+            <th>Number of Winners</th>
+            <th>Reward per Winner (KES)</th>
+            <th>Total (KES)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Daily Top Winner</td><td>1</td><td>500</td><td>500</td></tr>
+          <tr><td>Daily 2nd–5th</td><td>4</td><td>300</td><td>1,200</td></tr>
+          <tr><td>Weekly Grand Winner</td><td>1</td><td>2,000</td><td>2,000</td></tr>
+          <tr><td><strong>Total Weekly Budget</strong></td><td colspan="2"></td><td><strong>~KES 3,700</strong></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <footer>
+      <a href="index.html">⬅ Back to Demo Home</a>
+    </footer>
+  </div>
+
+  <script>
+    // Demo logic for adding questions
+    const form = document.getElementById('questionForm');
+    const list = document.getElementById('questionList');
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const q = document.getElementById('questionInput').value.trim();
+      if (q) {
+        const li = document.createElement('li');
+        li.textContent = q;
+        list.appendChild(li);
+        document.getElementById('questionInput').value = '';
+      }
+    });
+  </script>
+</body>
+</html>
