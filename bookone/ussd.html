@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>USSD Quiz Simulator - BookOne</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>📞 USSD Quiz Simulator</h1>
+    <div id="ussd-screen">
+      <p>Dial *123# to start</p>
+      <input id="ussd-input" placeholder="Enter *123#" />
+      <button class="btn" id="dial-btn">Dial</button>
+      <div id="ussd-session" class="hidden"></div>
+    </div>
+    <footer>
+      <a href="index.html">⬅ Back to Web Demo</a>
+    </footer>
+  </div>
+
+  <script>
+    const ussdQuestions = [
+      { q: "Who won AFCON 2024?", a: ["1) Nigeria", "2) Egypt", "3) Senegal", "4) Morocco"], correct: 1 },
+      { q: "Capital of Kenya?", a: ["1) Nakuru", "2) Nairobi", "3) Mombasa", "4) Kisumu"], correct: 2 },
+      { q: "Largest planet?", a: ["1) Earth", "2) Jupiter", "3) Mars", "4) Saturn"], correct: 2 }
+    ];
+
+    const dialBtn = document.getElementById("dial-btn");
+    const input = document.getElementById("ussd-input");
+    const session = document.getElementById("ussd-session");
+    let current = 0, score = 0;
+
+    dialBtn.addEventListener("click", () => {
+      if (input.value === "*123#") {
+        startUSSD();
+      } else {
+        alert("Invalid USSD code. Try *123#");
+      }
+    });
+
+    function startUSSD() {
+      input.style.display = "none";
+      dialBtn.style.display = "none";
+      session.classList.remove("hidden");
+      showQuestion();
+    }
+
+    function showQuestion() {
+      if (current < ussdQuestions.length) {
+        const q = ussdQuestions[current];
+        session.innerHTML = `
+          <p><strong>Q${current + 1}:</strong> ${q.q}</p>
+          ${q.a.map(opt => `<p>${opt}</p>`).join("")}
+          <input id="ans" placeholder="Enter option number" />
+          <button class="btn" id="send-btn">Send</button>
+        `;
+        document.getElementById("send-btn").addEventListener("click", processAnswer);
+      } else {
+        session.innerHTML = `
+          <h3>End of Quiz</h3>
+          <p>You scored ${score} out of ${ussdQuestions.length * 10}</p>
+          <p>Thank you for participating!</p>
+        `;
+      }
+    }
+
+    function processAnswer() {
+      const ans = parseInt(document.getElementById("ans").value);
+      if (ans === ussdQuestions[current].correct) score += 10;
+      current++;
+      showQuestion();
+    }
+  </script>
+</body>
+</html>
